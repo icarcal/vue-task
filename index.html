@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue Task</title>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+  <nav class="black">
+    <div class="nav-wrapper">
+    	<a href="#" class="brand-logo center">Vue tasks</a>
+    </div>
+  </nav>
+
+  <div id="app" class="container">
+  	<task-collection title="Todo list" :tasks="tasks"></task-collection>
+  	<task-add-form :tasks="tasks"></task-add-form>
+  </div>
+
+  <script src="https://unpkg.com/vue"></script>
+  <script type="text/javascript" src="/assets/js/app.js"></script>
+</body>
+</html>
