@@ -2,6 +2,57 @@
 
 const bus = new Vue();
 
+Vue.component('tab', {
+	template: `<div :id="id" v-show="isActive"><slot></slot></div>`,
+	computed: {
+		slug() {
+			return `#${this.id}`
+		}
+	},
+	mounted() {
+		this.isActive = this.selected
+	},
+	data: function () {
+		return {
+			isActive: false
+		}
+	},
+	props: {
+		title: { required: true },
+		id: { required: true },
+		selected: { default: false }
+	}
+});
+
+Vue.component('tabs', {
+	template: `
+	  <div class="row">
+	    <div class="col s12">
+	      <ul class="tabs">
+	        <li v-for="tab in tabs" class="tab col s3 tabs-fixed-width"><a :class="{ 'active': tab.isActive }" :href="tab.slug" @click="activateTab(tab)">{{ tab.title }} {{ tab.isActive }}</a></li>
+	      </ul>
+	    </div>
+	    <slot></slot>
+	  </div>
+	`,
+	methods: {
+		activateTab(tab) {
+			this.tabs.forEach(function (item) {
+				item.isActive = (item.id == tab.id);
+			});
+		}
+	},
+	created() {
+		this.tabs = this.$children;
+	},
+	data: function() {
+		return {
+			tabs: []
+		};
+	},
+	props: ['title']
+});
+
 Vue.component('task', {
 	template: `
 		<div class="col s12 m6">

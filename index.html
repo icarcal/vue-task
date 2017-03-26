@@ -18,7 +18,17 @@
     	<h2 class="center-align">Todo list</h2>
     </div>
   	<task-add-form></task-add-form>
-  	<task-collection></task-collection>
+  	<tabs>
+  		<tab title="Todo" id="todo" selected="true">
+  			<task-collection></task-collection>
+  		</tab>
+  		<tab title="Done" id="done">
+  			<task-collection></task-collection>
+  		</tab>
+  		<tab title="Dismissed" id="dismissed">
+  			<task-collection></task-collection>
+  		</tab>
+  	</tabs>
   </div>
 
   <script src="https://unpkg.com/vue"></script>
