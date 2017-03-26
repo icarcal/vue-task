@@ -1,5 +1,7 @@
 'use strict';
 
+const bus = new Vue();
+
 Vue.component('task', {
 	template: `
 		<div class="col s12 m6">
@@ -41,6 +43,9 @@ Vue.component('task-collection', {
 			this.tasks.push({ id, title: task.title, status: 'new' });
 		}
 	},
+	created: function () {
+	  bus.$on('task-added', this.taskAdded)
+	},
   data : () => {
 	  return {
 			tasks: [
@@ -58,7 +63,8 @@ Vue.component('task-add-form', {
 				<div class="row">
 			    <div class="input-field col s10">
 			      <i class="material-icons prefix">mode_edit</i>
-			      <input id="new-task" type="text" class="validate" placeholder="Add your task here" v-model="task">
+			      <input id="new-task" type="text" class="validate" :class="{ 'invalid': !isValid }" placeholder="Add your task here" v-model="task">
+			      <span v-show="!isValid" class="badge">Field required</span>
 			    </div>
 					<div class="input-field col s2">
   					<a class="btn-floating waves-effect waves-light" @click="addTask"><i class="material-icons">add</i></a>
@@ -69,13 +75,19 @@ Vue.component('task-add-form', {
 	`,
 	data: () => {
 		return {
-			task: ''
+			task: '',
+			isValid: true,
 		}
 	},
 	methods: {
 		addTask() {
-			this.$emit('task-added', { title: this.task });
-			this.task = '';
+			if (this.task !== '') {
+				bus.$emit('task-added', { title: this.task });
+				this.task = '';
+				return this.isValid = true;
+			}
+
+			return this.isValid = false;
 		}
 	}
 });
