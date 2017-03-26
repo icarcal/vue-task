@@ -1,7 +1,5 @@
 'use strict';
 
-const bus = new Vue();
-
 Vue.component('task', {
 	template: `
 		<div class="col s12 m6">
@@ -43,9 +41,6 @@ Vue.component('task-collection', {
 			this.tasks.push({ id, title: task.title, status: 'new' });
 		}
 	},
-	created: function () {
-	  bus.$on('task-added', this.taskAdded)
-	},
   data : () => {
 	  return {
 			tasks: [
@@ -79,7 +74,7 @@ Vue.component('task-add-form', {
 	},
 	methods: {
 		addTask() {
-			bus.$emit('task-added', { title: this.task });
+			this.$emit('task-added', { title: this.task });
 			this.task = '';
 		}
 	}
