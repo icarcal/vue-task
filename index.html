@@ -14,8 +14,11 @@
   </nav>
 
   <div id="app" class="container">
-  	<task-collection title="Todo list" :tasks="tasks"></task-collection>
-  	<task-add-form :tasks="tasks"></task-add-form>
+    <div class="col s12">
+    	<h2 class="center-align">Todo list</h2>
+    </div>
+  	<task-add-form></task-add-form>
+  	<task-collection></task-collection>
   </div>
 
   <script src="https://unpkg.com/vue"></script>

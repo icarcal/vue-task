@@ -1,5 +1,7 @@
 'use strict';
 
+const bus = new Vue();
+
 Vue.component('task', {
 	template: `
 		<div class="col s12 m6">
@@ -32,13 +34,26 @@ Vue.component('task', {
 Vue.component('task-collection', {
 	template: `
     <div class="row">
-    	<div class="col s12">
-    		<h2 class="center-align">{{ title }}</h2>
-    	</div>
 			<task v-for="task in this.tasks" :text="task.title" :key="task.id"></task>
     </div>
 	`,
-	props: ['title', 'tasks'],
+	methods: {
+		taskAdded(task) {
+			let id = this.tasks.length + 1;
+			this.tasks.push({ id, title: task.title, status: 'new' });
+		}
+	},
+	created: function () {
+	  bus.$on('task-added', this.taskAdded)
+	},
+  data : () => {
+	  return {
+			tasks: [
+				{ id:1, title: 'Learn Vue', status: 'todo' },
+				{ id:2, title: 'Learn React', status: 'done' },
+			]
+		}
+  }
 });
 
 Vue.component('task-add-form', {
@@ -60,24 +75,16 @@ Vue.component('task-add-form', {
 	data: () => {
 		return {
 			task: ''
-		};
+		}
 	},
-	props: ['tasks'],
 	methods: {
 		addTask() {
-			let id = this.tasks.length + 1;
-			this.tasks.push({ id, title: this.task, status: 'new' });
+			bus.$emit('task-added', { title: this.task });
 			this.task = '';
 		}
 	}
 });
 
 const app = new Vue({
-  el: '#app',
-  data : {
-		tasks: [
-			{ id:1, title: 'Learn Vue', status: 'todo' },
-			{ id:2, title: 'Learn React', status: 'done' },
-		]
-  }
+  el: '#app'
 });
