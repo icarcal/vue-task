@@ -4,7 +4,7 @@
 
 <script>
 	export default {
-	  name: 'tab',
+	  name: 'Tab',
 		computed: {
 			slug() {
 				return `#${this.id}`

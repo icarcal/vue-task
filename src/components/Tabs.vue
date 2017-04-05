@@ -11,7 +11,7 @@
 
 <script>
 	export default {
-		name: 'tabs',
+		name: 'Tabs',
 		methods: {
 			activateTab(tab) {
 				this.tabs.forEach(function (item) {

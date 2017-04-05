@@ -6,6 +6,7 @@
   	<task-add-form></task-add-form>
   	<tabs>
   		<tab title="Todo" id="todo" selected="true">
+				<task-collection></task-collection>
   		</tab>
   		<tab title="Done" id="done">
   		</tab>
@@ -19,13 +20,15 @@
 	import Tabs from './components/Tabs.vue'
 	import Tab from './components/Tab.vue'
 	import TaskAddForm from './components/TaskAddForm.vue'
+	import TaskCollection from './components/TaskCollection.vue'
 
 	export default {
 	  name: 'app',
 		components: {
 			tab: Tab,
 			tabs: Tabs,
-			taskAddForm: TaskAddForm
+			taskAddForm: TaskAddForm,
+			taskCollection: TaskCollection
 		}
 	}
 </script>
