@@ -18,6 +18,7 @@
 <script>
 	export default {
 	  name: 'TaskAddForm',
+	  props: ['bus'],
 		data: () => {
 			return {
 				task: '',
@@ -27,7 +28,7 @@
 		methods: {
 			addTask() {
 				if (this.task !== '') {
-					this.$emit('task-added', { title: this.task });
+					this.bus.$emit('task-added', { title: this.task });
 					this.task = '';
 					return this.isValid = true;
 				}

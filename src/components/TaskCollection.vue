@@ -9,6 +9,7 @@
 
 	export default {
 	  name: 'TaskCollection',
+	  props: ['bus'],
 	  components: {
 			task: Task
 		},
@@ -19,7 +20,7 @@
 			}
 		},
 		created: function () {
-		  this.$on('task-added', this.taskAdded)
+		  this.bus.$on('task-added', this.taskAdded)
 		},
 	  data : () => {
 		  return {

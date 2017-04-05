@@ -3,10 +3,10 @@
     <div class="col s12">
     	<h2 class="center-align">Todo list</h2>
     </div>
-  	<task-add-form></task-add-form>
+  	<task-add-form :bus="eventBus"></task-add-form>
   	<tabs>
   		<tab title="Todo" id="todo" selected="true">
-				<task-collection></task-collection>
+				<task-collection :bus="eventBus"></task-collection>
   		</tab>
   		<tab title="Done" id="done">
   		</tab>
@@ -17,10 +17,13 @@
 </template>
 
 <script>
+	import Vue from 'vue'
 	import Tabs from './components/Tabs.vue'
 	import Tab from './components/Tab.vue'
 	import TaskAddForm from './components/TaskAddForm.vue'
 	import TaskCollection from './components/TaskCollection.vue'
+
+	const eventBus = new Vue();
 
 	export default {
 	  name: 'app',
@@ -29,6 +32,11 @@
 			tabs: Tabs,
 			taskAddForm: TaskAddForm,
 			taskCollection: TaskCollection
+		},
+		data: () => {
+			return {
+				eventBus
+			};
 		}
 	}
 </script>
